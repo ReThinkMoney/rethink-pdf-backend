@@ -9,7 +9,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://rethinkmoney.github.io/rethink-pdf-website/"],  
+    allow_origins=["https://rethinkmoney.github.io/rethink-pdf-website"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
