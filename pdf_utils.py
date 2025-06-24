@@ -7,16 +7,16 @@ def personalize_pdf(template_path, output_path, email):
     reader = PdfReader(template_path)
     writer = PdfWriter()
 
-    watermark = BytesIO()
-    c = canvas.Canvas(watermark, pagesize=A4)
-    c.setFont("Helvetica", 8)
-    c.drawString(30, 20, f"{email} – nur zur privaten Verwendung, nicht zur Weitergabe")
-    c.save()
-    watermark.seek(0)
-    mark = PdfReader(watermark).pages[0]
-
     for page in reader.pages:
-        page.merge_page(mark)
+        packet = BytesIO()
+        c = canvas.Canvas(packet, pagesize=A4)
+        c.setFont("Helvetica", 8)
+        c.drawString(30, 20, f"{email} – nur zur privaten Verwendung, nicht zur Weitergabe")
+        c.save()
+        packet.seek(0)
+        watermark = PdfReader(packet).pages[0]
+
+        page.merge_page(watermark)
         writer.add_page(page)
 
     with open(output_path, "wb") as f:
