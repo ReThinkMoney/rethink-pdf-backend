@@ -10,7 +10,7 @@ def personalize_pdf(template_path, output_path, email):
     for page in reader.pages:
         packet = BytesIO()
         c = canvas.Canvas(packet, pagesize=A4)
-        c.setFont("Helvetica", 8)
+        c.setFont("Helvetica", 6)
         c.drawString(30, 20, f"{email} – nur zur privaten Verwendung, nicht zur Weitergabe")
         c.save()
         packet.seek(0)
