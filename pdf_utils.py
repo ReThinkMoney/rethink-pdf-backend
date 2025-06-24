@@ -1,6 +1,5 @@
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
-from reportlab.lib.units import mm
 from io import BytesIO
 
 def personalize_pdf(template_path, output_path, email):
@@ -12,17 +11,20 @@ def personalize_pdf(template_path, output_path, email):
         width = float(page.mediabox.width)
         height = float(page.mediabox.height)
 
-        # Neues Wasserzeichen für jede Seite
         c = canvas.Canvas(packet, pagesize=(width, height))
         c.setFont("Helvetica", 8)
-        c.drawString(30, 20, f"{email} – nur zur privaten Verwendung, nicht zur Weitergabe")
+
+        # Wasserzeichen z.B. 10 mm vom linken Rand, 15 mm vom unteren Rand
+        c.drawString(10 * 2.83, 15 * 2.83, f"{email} – nur zur persönlichen Nutzung, keine Weitergabe")
         c.save()
         packet.seek(0)
 
-        # Wasserzeichen als PDF laden und einfügen
-        watermark = PdfReader(packet).pages[0]
-        page.merge_page(watermark)
+        watermark_pdf = PdfReader(packet)
+        watermark_page = watermark_pdf.pages[0]
+
+        page.merge_page(watermark_page)
         writer.add_page(page)
 
     with open(output_path, "wb") as f:
         writer.write(f)
+
