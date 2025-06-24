@@ -14,7 +14,7 @@ def personalize_pdf(template_path, output_path, email):
         c = canvas.Canvas(packet, pagesize=(width, height))
         c.setFont("Helvetica", 8)
 
-        # Wasserzeichen z.B. 10 mm vom linken Rand, 15 mm vom unteren Rand
+        # Wasserzeichen z.B. 20 mm vom linken Rand, 20 mm vom unteren Rand
         c.drawString(20 * 2.83, 20 * 2.83, f"{email} – nur zur persönlichen Nutzung, keine Weitergabe")
         c.save()
         packet.seek(0)
