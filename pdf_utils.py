@@ -15,7 +15,7 @@ def personalize_pdf(template_path, output_path, email):
         c.setFont("Helvetica", 8)
 
         # Wasserzeichen z.B. 10 mm vom linken Rand, 15 mm vom unteren Rand
-        c.drawString(10 * 2.83, 15 * 2.83, f"{email} – nur zur persönlichen Nutzung, keine Weitergabe")
+        c.drawString(20 * 2.83, 20 * 2.83, f"{email} – nur zur persönlichen Nutzung, keine Weitergabe")
         c.save()
         packet.seek(0)
 
